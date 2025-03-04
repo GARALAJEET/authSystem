@@ -21,7 +21,7 @@ public class mainController {
     private login_service loginService;
     @GetMapping("/Home")
     public String hello(){
-        return "Hello World";
+        return "Hello from Rio";
     }
     @PostMapping("/signup")
     public  String signup(@RequestBody DTO_signup s){

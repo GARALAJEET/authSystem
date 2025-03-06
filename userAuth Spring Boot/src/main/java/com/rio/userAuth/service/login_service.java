@@ -9,6 +9,8 @@ import com.rio.userAuth.repo.sign_repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class login_service {
     private login_repo loginRepo;
     @Autowired
     private sign_repo signRepo;
+    @Autowired
+    private JavaMailSender javaMailSender;
     public ResponseEntity<String> saveLogin(DTO_login l){
         if(l.getEmail().isEmpty() || l.getPassword().isEmpty()){
             return new ResponseEntity<>("Email or Password is Empty", HttpStatus.BAD_REQUEST) ;
@@ -30,6 +34,15 @@ public class login_service {
                 l1.setEmail(l.getEmail());
                 l1.setPassword(l.getPassword());
                 loginRepo.save(l1);
+                try {
+                    SimpleMailMessage msg = new SimpleMailMessage();
+                    msg.setTo(l1.getEmail());
+                    msg.setSubject("Registration Successful");
+                    msg.setText("Hello "+s.get(0).getName()+"\n\n Login  successfully .\n\nRegards,\nRio");
+                    javaMailSender.send(msg);
+                } catch (Exception e) {
+                    throw new RuntimeException(e.getMessage());
+                }
                 return new ResponseEntity<>(s.get(0).getName(), HttpStatus.OK) ;
             }
             else{

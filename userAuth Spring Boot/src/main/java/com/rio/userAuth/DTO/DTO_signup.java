@@ -1,10 +1,7 @@
 package com.rio.userAuth.DTO;
 
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,7 @@ public class DTO_signup {
     @Email(message = "Email should be valid\n")
     private String email;
     @Size(max = 14, min = 6,message = "Password should be between 6 to 14 characters")
+
     private String password;
 
     public String getName() {

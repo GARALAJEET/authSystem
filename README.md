@@ -99,9 +99,8 @@ mvn spring-boot:run
 - **Two-Factor Authentication (2FA)**
 - **OAuth (Google, GitHub) Login**
 
-
-
-
 ---
-Made with Jeet Garala
+Made with ❤️ by Jeet Garala
+
+📧 Contact: jeetgarala2603@gmail.com
 

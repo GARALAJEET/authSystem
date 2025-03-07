@@ -34,8 +34,7 @@ AuthSystem is a **User Authentication System** built with **Spring Boot (Backend
 
 ### 🔹 Clone the Repository
 ```sh
- git clone https://github.com/your-username/AuthSystem.git
- cd AuthSystem
+https://github.com/GARALAJEET/authSystem.git
 ```
 
 ### 🔹 Configure MySQL Database

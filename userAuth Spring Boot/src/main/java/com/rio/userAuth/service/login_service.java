@@ -41,12 +41,12 @@ public class login_service {
                     msg.setText("Hello "+s.get(0).getName()+"\n\n Login  successfully .\n\nRegards,\nRio");
                     javaMailSender.send(msg);
                 } catch (Exception e) {
-                    throw new RuntimeException(e.getMessage());
+                    return new ResponseEntity<>("Login Failed", HttpStatus.BAD_REQUEST) ;
                 }
                 return new ResponseEntity<>(s.get(0).getName(), HttpStatus.OK) ;
             }
             else{
-                return new ResponseEntity<>("Login Failed", HttpStatus.NOT_FOUND) ;
+                return new ResponseEntity<>("  Login failed. Email or password does not match our records   ", HttpStatus.NOT_FOUND) ;
             }
         }
     }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface sign_repo extends JpaRepository<signup,Integer > {
-    @Query("SELECT s FROM signup s WHERE s.email = ?1 and s.password = ?2")
+//    @Query("SELECT s FROM signup s WHERE s.email = ?1 and s.password = ?2")
     List<signup> findByEmailAndPassword(String email, String password);
-
+    List<signup>findByEmail(String email);
 }

@@ -1,14 +1,18 @@
 package com.rio.userAuth.DTO;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DTO_login {
     private Long login_id;
+    @Email(message = "Email should be valid\n")
     private String email;
+    @Length(max=14, min=6,message = "Password should be between 6 to 14 characters\n")
     private String password;
 
     public String getEmail() {

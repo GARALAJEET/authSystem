@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Redirect or update UI as needed
         } catch (error) {
             console.error('Login failed', error);
-            alert(error.response?.data );
+            // alert(error.response?.data);
+            alert(error.response?.data?.message|| error.response?.data);
         }
     }); 
     signupBtn.addEventListener('click', async () => {
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loginForm.style.display = 'block';
         } catch (error) {
             console.error('Signup failed', error);
-            alert('Signup failed. Please try again.');
+            alert(error.response?.data|| error.response?.data.message);
         }
     });
 });

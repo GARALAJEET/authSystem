@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,16 +30,28 @@ public class signup_service {
         s1.setName(s.getName());
         s1.setPassword(s.getPassword());
         signRepo.save(s1);
-        try {
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(s.getEmail());
-            msg.setSubject("Registration Successful");
-            msg.setText("Hello "+s.getName()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
-            javaMailSender.send(msg);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Registration Failed", org.springframework.http.HttpStatus.BAD_REQUEST) ;
-        }
+        System.out.println("User saved: " + s1);
+        sendMail(s);
+        System.out.println("Email sent to: " + s.getEmail());
         return new ResponseEntity<>("Registration Successful", org.springframework.http.HttpStatus.OK) ;
+    }
+    @Async
+    void sendMail(DTO_signup s){
+        Thread thread = new Thread(() -> {
+            System.out.println("Sending email to " + s.getEmail());
+            try {
+                SimpleMailMessage msg = new SimpleMailMessage();
+                msg.setTo(s.getEmail());
+                msg.setSubject("Registration Successful");
+                msg.setText("Hello "+s.getName()+"\n\nYou have successfully registered with us.\n\nThank you for registering with us.\n\nRegards,\nRio");
+                javaMailSender.send(msg);
+            } catch (Exception e) {
+                System.out.println("Error sending email: " + e.getMessage());
+            }
+            System.out.println("Email sent to " + s.getEmail());
+        });
+       thread.start();
+
     }
 
 }
